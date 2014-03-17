@@ -109,6 +109,10 @@ do_install_append () {
 		${D}${systemd_unitdir}/system/sshd.socket ${D}${systemd_unitdir}/system/*.service
 }
 
+do_install_append_qemuall() {
+	sed -i -e 's:#UseDNS yes:UseDNS no:' ${WORKDIR}/sshd_config ${D}${sysconfdir}/ssh/sshd_config
+}
+
 ALLOW_EMPTY_${PN} = "1"
 
 PACKAGES =+ "${PN}-keygen ${PN}-scp ${PN}-ssh ${PN}-sshd ${PN}-sftp ${PN}-misc ${PN}-sftp-server"
